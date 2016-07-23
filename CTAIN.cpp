@@ -1,20 +1,20 @@
+/*__ _(_) __ _  ___  ___ _   _  __| | __ _ _   _| |_ ___  
+ / _` | |/ _` |/ _ \/ __| | | |/ _` |/ _` | | | | __/ _ \ 
+| (_| | | (_| | (_) \__ \ |_| | (_| | (_| | |_| | || (_) |
+ \__, |_|\__,_|\___/|___/\__,_|\__,_|\__,_|\__,_|\__\___/ 
+ |___/                                  Accepted Code  */
 #include <bits/stdc++.h>
 using namespace std;
 
 int main()
 {
-#ifdef gsdt
-    freopen("input.txt","r",stdin);
-#endif // gsdt
-
     int T;
     scanf("%d",&T);
     while(T--)
     {
         int n;
-        bool ok=false;
+        bool ok;
         scanf("%d",&n);
-        //scanf("%d",&n);
 
         vector<int> a;
         for(int i=0; i<n; i++)
@@ -29,10 +29,11 @@ int main()
         memset(r,0,sizeof(r));
         for(int i=0; i<n; i++)
             scanf("%d",r+i);
-
+        // kiem tra trang thai ban dau da thoa man chua?
         ok=true;
         for(int i=0; i<n; i++)
             if(a[i]!=r[i]) ok=false;
+        // nếu đã thỏa mãn rồi thì không cần biến đổi gì thêm
         if(ok)
         {
             printf("%d\n",0);
@@ -44,7 +45,7 @@ int main()
         memset(exist,0,sizeof(exist));
 
         queue<vector<int>> lq;
-
+        // Tiến hành duyệt theo chiều rông BFS
         for(lq.push(a), exist[a[0]][a[1]][a[2]][a[3]]=1; !lq.empty(); lq.pop())
         {
             vector<int> cur=lq.front();
@@ -59,10 +60,6 @@ int main()
                         w=cur;
                         w[j]+=w[i];
                         w[i]=0;
-                        /*for(int k=0; k<n; k++)
-                            printf("%d ",w[k]);
-                        printf("\n");
-                        */
                         // kiem tra da thoa man chua?
                         ok=true;
                         for(int k=0; k<n; k++)
@@ -71,7 +68,7 @@ int main()
                                 ok=false;
                                 break;
                             }
-                        // Neu da thao man roi
+                        // Neu da thoa man roi
                         if(ok)
                         {
                             printf("%d\n",exist[cur[0]][cur[1]][cur[2]][cur[3]]);
@@ -93,13 +90,10 @@ int main()
                 for(int j=0; j<n; j++)
                     if(i!=j && cur[j]!=a[j] && cur[i]>a[j]-cur[j])
                     {
+                        //Tien hành đổ nước
                         w=cur;
                         w[i]=cur[i]-(a[j]-cur[j]);
                         w[j]=a[j];
-                        /*for(int k=0; k<n; k++)
-                            printf("%d ",w[k]);
-                        printf("\n");
-                        */
                         // kiem tra da thoa man chua?
                         ok=true;
                         for(int k=0; k<n; k++)
@@ -108,7 +102,7 @@ int main()
                                 ok=false;
                                 break;
                             }
-                        // Neu da thao man roi
+                        // Neu da thoa man roi
                         if(ok)
                         {
                             printf("%d\n",exist[cur[0]][cur[1]][cur[2]][cur[3]]);
@@ -131,11 +125,6 @@ int main()
                 {
                     w=cur;
                     w[i]=0;
-                    /*
-                    for(int k=0; k<n; k++)
-                        printf("%d ",w[k]);
-                    printf("\n");
-                    */
                     // kiem tra da thoa man chua?
                     ok=true;
                     for(int k=0; k<n; k++)
@@ -144,7 +133,7 @@ int main()
                             ok=false;
                             break;
                         }
-                    // Neu da thao man roi
+                    // Neu da thoa man roi
                     if(ok)
                     {
                         printf("%d\n",exist[cur[0]][cur[1]][cur[2]][cur[3]]);
@@ -159,11 +148,7 @@ int main()
                 }
             if(ok) break;
         }
-        if(lq.empty())
-        {
-            printf("NO\n");
-        }
+        if(lq.empty()) printf("NO\n");
     }
-
     return 0;
 }
