@@ -3,11 +3,6 @@ using namespace std;
 
 int main()
 {
-#ifdef gsdt
-    freopen("input.txt","r",stdin);
-#endif // gsdt
-
-
     int T;
 
     scanf("%d", &T);
